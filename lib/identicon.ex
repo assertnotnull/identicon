@@ -1,4 +1,8 @@
 defmodule Identicon do
+  @moduledoc """
+    Generates an Identicon image from a string
+  """
+
   def main(input) do
     input
     |> hashInput
