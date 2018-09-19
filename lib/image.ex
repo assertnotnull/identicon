@@ -3,5 +3,5 @@ defmodule Identicon.Image do
   This is the struct for image
   """
 
-  defstruct hex: nil, color: nil, grid: nil
+  defstruct hex: nil, color: nil, grid: nil, pixelMap: nil
 end

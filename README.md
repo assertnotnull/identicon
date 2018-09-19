@@ -1,6 +1,9 @@
 # Identicon
-
-**TODO: Add description**
+Code for identicon software course
+```
+mix deps.get
+iex -S mix
+```
 
 ## Installation
 

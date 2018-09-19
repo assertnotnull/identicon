@@ -5,6 +5,36 @@ defmodule Identicon do
     |> pickColor
     |> buildGrid
     |> filterOddSquares
+    |> buildPixelMap
+    |> drawImage
+    |> saveImage(input)
+  end
+
+  def saveImage(image, input) do
+    File.write("#{input}.png", image)
+  end
+
+  def drawImage(%Identicon.Image{color: color, pixelMap: pixelMap}) do
+    image = :egd.create(250, 250)
+    fill = :egd.color(color)
+
+    Enum.each pixelMap, fn({start, stop}) ->
+      :egd.filledRectangle(image, start, stop, fill)
+    end
+
+    :egd.render(image)
+  end
+
+  def buildPixelMap(%Identicon.Image{grid: grid} = image) do
+    pixelMap = Enum.map grid, fn({_code, index}) -> 
+      horizontal = rem(index, 5) * 50
+      vertical = div(index, 5) * 50
+      topLeft = {horizontal, vertical}
+      bottomRight = {horizontal + 50, vertical + 50}
+      {topLeft, bottomRight}
+    end
+
+    %Identicon.Image{image | pixelMap: pixelMap}
   end
 
   def hashInput(input) do
